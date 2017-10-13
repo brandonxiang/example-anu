@@ -1,6 +1,7 @@
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
+var config = require('../config/index');
 var webpackConfig = require('./webpack.dev.conf');
 
 var app = express();
@@ -11,6 +12,10 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
   quiet: true,
   publicPath: webpackConfig.output.publicPath
 });
+
+// serve pure static assets
+var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+app.use(staticPath, express.static('./static'))
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}

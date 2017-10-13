@@ -5,6 +5,7 @@ var merge = require('webpack-merge')
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
+var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 
 module.exports = merge(baseWebpackConfig, {
@@ -17,12 +18,12 @@ module.exports = merge(baseWebpackConfig, {
       filename: 'index.html',
       inject: true
     }),
-    new TransferWebpackPlugin([
-      { from: 'services/polyfill', to: '/js' }
-    ], path.join(__dirname, '../src')),
+    // new TransferWebpackPlugin([
+    //   { from: 'services/polyfill', to: '/js' }
+    // ], path.join(__dirname, '../src')),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new FriendlyErrorsPlugin()
   ]
 });
 
